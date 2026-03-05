@@ -1,0 +1,99 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+ }
+ body{
+    background-size: 100%;
+    background-image: linear-gradient(to top, rgb(22, 19, 118),rgb(0, 165, 254),  rgb(17, 14, 86));
+ }
+ header{
+    padding: 20px;
+    text-align: center;
+ }
+ .container{
+    margin: 10px auto;
+    width: 500px;
+    padding: 20px 10px;
+    overflow: auto;
+    display: flex; 
+
+ }
+ 
+ #form{
+    padding: 20px;
+ }
+ #form label{
+    display: block;
+ }
+ .text-input{
+    width: 200px;
+    padding: 10px;
+
+    margin-bottom: 10px;
+    border: 3px solid #333;
+    border-radius: 14px;
+ }
+ 
+.btn{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #07e1ed8f;
+    color: #9d00ff9e;
+    border-radius: 50px;
+    margin: 5px 0;
+    cursor: pointer;
+ }
+ 
+ .btn:hover{
+    background-color: #ff0000;
+    color:#07e2ed;
+ }
+ 
+ .bg-dark{
+    background-color: #333;
+    color: #fff;
+ }
+ .error{
+    background-color: red;
+    padding: 5px;
+    margin: 5px;
+    color: azure;
+    border-radius: 50%;
+    text-align: center;
+ }
+ #name:hover{
+    background-color: rgba(249, 178, 192, 0.734);
+ }
+ #email:hover{
+    background-color: rgba(249, 178, 192, 0.734);
+ }
+ #last_name:hover{
+    background-color: rgba(249, 178, 192, 0.734);
+ }
+ #phone:hover{
+    background-color: rgba(249, 178, 192, 0.734);
+ }
+
+ #btn{
+   display: flex;
+ }
+ .complite{
+   background-color: rgb(0, 255, 0);
+   padding: 5px;
+   margin: 5px;
+   color: rgb(0, 34, 255);
+   border-radius: 250%;
+   text-align: center;
+ }
+ .side-bar-left {
+   float: right; 
+   margin-left: 30px; 
+}
+a{
+   color: #585656;
+}
+#checkbox{
+
+}

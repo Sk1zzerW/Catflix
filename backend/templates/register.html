@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}Регистрация - Sk1sserflix{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" action="{% url 'register' %}" id="registerForm">
+        <!-- CSRF токен - защита от межсайтовой подделки запросов -->
+        {% csrf_token %}
+        
+        <h2>Регистрация</h2>
+        
+        <!-- Поле username -->
+        <label for="username">Имя пользователя *</label>
+        <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            class="text-input {% if errors.username %}error-input{% endif %}"
+            value="{{ old_data.username|default:'' }}"
+        >
+        {% if errors.username %}
+            <small class="error">{{ errors.username }}</small>
+        {% endif %}
+        
+        <!-- Поле email -->
+        <label for="email">Email *</label>
+        <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            class="text-input {% if errors.email %}error-input{% endif %}"
+            value="{{ old_data.email|default:'' }}"
+        >
+        {% if errors.email %}
+            <small class="error">{{ errors.email }}</small>
+        {% endif %}
+        
+        <!-- Поле пароля -->
+        <label for="password">Пароль *</label>
+        <input 
+            type="password" 
+            id="password" 
+            name="password" 
+            class="text-input {% if errors.password %}error-input{% endif %}"
+        >
+        {% if errors.password %}
+            <small class="error">{{ errors.password }}</small>
+        {% endif %}
+        
+        <!-- Подтверждение пароля -->
+        <label for="password2">Подтвердите пароль *</label>
+        <input 
+            type="password" 
+            id="password2" 
+            name="password2" 
+            class="text-input {% if errors.password2 %}error-input{% endif %}"
+        >
+        {% if errors.password2 %}
+            <small class="error">{{ errors.password2 }}</small>
+        {% endif %}
+        
+        <!-- Checkbox согласия -->
+        <div class="checkbox">
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree" class="terms">
+                Я согласен с <a href="#">условиями</a> использования
+            </label>
+        </div>
+        
+        <!-- Кнопка отправки -->
+        <button type="submit" class="btn">
+            <i class="fa-regular fa-comment"></i> Зарегистрироваться
+        </button>
+    </form>
+</div>
+{% endblock %}

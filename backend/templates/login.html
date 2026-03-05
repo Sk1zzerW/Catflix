@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход - Sk1sserflix{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <form method="POST" action="{% url 'login' %}" id="loginForm" >
+        {% csrf_token %}
+
+
+    <h2>Вход</h2>
+    
+    <!-- Username -->
+    <label for="username">Имя пользователя *</label>
+    <input 
+        type="text" 
+        id="username" 
+        name="username" 
+        class="text-input {% if errors.username %}error-input{% endif %}"
+        value="{{ old_data.username|default:'' }}"
+    >
+    {% if errors.username %}
+        <small class="error">{{ errors.username }}</small>
+    {% endif %}
+    
+    <!-- Password -->
+    <label for="password">Пароль *</label>
+    <input 
+        type="password" 
+        id="password" 
+        name="password" 
+        class="text-input {% if errors.password %}error-input{% endif %}"
+    >
+    {% if errors.password %}
+        <small class="error">{{ errors.password }}</small>
+    {% endif %}
+    
+    <!-- Кнопка входа -->
+    <button type="submit" class="btn">
+        <i class="fa-solid fa-right-to-bracket"></i> Войти
+    </button>
+
+    <p style="margin-top:15px;">
+        Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
+    </p>
+    
+</form>
+
+
+</div>
+{% endblock %}

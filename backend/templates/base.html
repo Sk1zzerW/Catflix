@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sk1sserflix{% endblock %}</title>
+
+    <!-- Подключаем ваши CSS файлы -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/text.css' %}">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/e3c2b2dfa9.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <h1>Sk1sserflix</h1>
+        <nav>
+            <h2>Добро пожаловать</h2>
+            <a href="{% url 'register' %}">Регистрация</a>
+            <a href="{% url 'login' %}">Войти в систему</a>
+            <a href="{% url 'users_list' %}">Пользователи</a>
+        </nav>
+    </header>
+
+    <!-- Блок для сообщений -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="msg {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Основной контент -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
