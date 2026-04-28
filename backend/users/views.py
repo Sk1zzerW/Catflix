@@ -1,63 +1,57 @@
-from idlelib.iomenu import errors
-from datetime import datetime
-from django.contrib.auth.hashers import make_password
-from django.shortcuts import render, redirect
 from django.contrib import messages
-
-from django.contrib.auth import authenticate, login as auth_login
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'home.html')
 
 
 def register(request):
-
     if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        password2 = request.POST.get('password2')
+        username = (request.POST.get('username') or '').strip()
+        email = (request.POST.get('email') or '').strip().lower()
+        password = request.POST.get('password') or ''
+        password2 = request.POST.get('password2') or ''
 
         errors = {}
 
-
         if not username:
-            errors['username'] = 'Username cannot be empty'
+            errors['username'] = 'Введите имя пользователя'
         elif User.objects.filter(username=username).exists():
-            errors['username'] = 'Username already exists'
-
+            errors['username'] = 'Такое имя пользователя уже существует'
 
         if not email:
-            errors['email'] = 'Email cannot be empty'
+            errors['email'] = 'Введите email'
+        elif '@' not in email:
+            errors['email'] = 'Введите корректный email'
         elif User.objects.filter(email=email).exists():
-            errors['email'] = 'Email already exists'
-
+            errors['email'] = 'Такой email уже зарегистрирован'
 
         if not password:
-            errors['password'] = 'Password cannot be empty'
+            errors['password'] = 'Введите пароль'
         elif len(password) < 6:
-            errors['password'] = 'Password must contain at least 6 characters'
+            errors['password'] = 'Пароль должен содержать минимум 6 символов'
 
-
-        if password != password2:
-            errors['password2'] = 'Passwords must match'
-
+        if not password2:
+            errors['password2'] = 'Повторите пароль'
+        elif password != password2:
+            errors['password2'] = 'Пароли не совпадают'
 
         if errors:
             return render(request, 'register.html', {
                 'errors': errors,
-                'old_data': request.POST  # Исправлено: POST, а не Post
+                'old_data': request.POST,
             })
 
-
-        User.objects.create_user(
+        user = User.objects.create_user(
             username=username,
             email=email,
-            password=password
+            password=password,
         )
-
-        messages.success(request, 'User created successfully')
+        auth_login(request, user)
+        messages.success(request, 'Аккаунт успешно создан')
         return redirect('home')
 
     return render(request, 'register.html')
@@ -65,28 +59,45 @@ def register(request):
 
 def login(request):
     if request.method == 'POST':
-        username = (request.POST.get('username') or '').strip()
+        login_value = (request.POST.get('username') or '').strip()
         password = request.POST.get('password') or ''
 
-        #if user empty
-        if not username or not password:
-            messages.error(request, 'Username or password is empty')
-            return render(request, 'login.html')
-        else:
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                auth_login(request, user)
+        errors = {}
 
-                return redirect('home')
-            else:
-                messages.error(request, 'Username or password does not exist')
-                return render(request, 'login.html')
+        if not login_value:
+            errors['username'] = 'Введите email или имя пользователя'
+        if not password:
+            errors['password'] = 'Введите пароль'
 
+        if errors:
+            return render(request, 'login.html', {
+                'errors': errors,
+                'old_data': request.POST,
+            })
 
+        username = login_value
+        if '@' in login_value:
+            user_by_email = User.objects.filter(email=login_value.lower()).first()
+            if user_by_email:
+                username = user_by_email.username
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+
+        return render(request, 'login.html', {
+            'errors': {'general': 'Неверный email/имя пользователя или пароль'},
+            'old_data': request.POST,
+        })
 
     return render(request, 'login.html')
 
 
+def logout(request):
+    auth_logout(request)
+    return redirect('login')
 
 
 def users_list(request):

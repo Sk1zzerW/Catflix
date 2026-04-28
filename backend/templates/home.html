@@ -1,18 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Главная страница</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-{% if user.is_authenticated %}
-    <h1>Добро пожаловать, {{ user.username }}!</h1>
-    <p>Вы успешно вошли в систему.</p>
-    <a href="{% url 'logout' %}">Выйти</a>
-{% else %}
-    <h1>Вы не вошли в систему</h1>
-    <a href="{% url 'login' %}">Войти</a>
-{% endif %}
+{% block title %}Главная - CatFlix{% endblock %}
 
-</body>
-</html>
+{% block body %}
+<div class="home-page">
+    <nav class="auth-nav">
+        <a class="logo" href="{% url 'home' %}">CATFLIX</a>
+    </nav>
+
+    <div class="home-card">
+        {% if user.is_authenticated %}
+            <h1>Добро пожаловать, {{ user.username }}!</h1>
+            <p>Вы успешно вошли в систему.</p>
+            <p style="margin-top: 18px;"><a href="{% url 'logout' %}">Выйти</a></p>
+        {% else %}
+            <h1>Вы не вошли в систему</h1>
+            <p style="margin-top: 18px;"><a href="{% url 'login' %}">Войти</a> или <a href="{% url 'register' %}">зарегистрироваться</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

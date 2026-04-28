@@ -1,52 +1,61 @@
 {% extends 'base.html' %}
 
-{% block title %}Вход - Sk1sserflix{% endblock %}
+{% block title %}Вход - CatFlix{% endblock %}
 
-{% block content %}
+{% block body %}
+<div class="auth-page">
+    <nav class="auth-nav">
+        <a class="logo" href="{% url 'home' %}">CATFLIX</a>
+    </nav>
 
-<div class="container">
-    <form method="POST" action="{% url 'login' %}" id="loginForm" >
-        {% csrf_token %}
+    <div class="auth-container">
+        <form method="POST" action="{% url 'login' %}" class="auth-form" id="loginForm">
+            {% csrf_token %}
+            <h1 class="auth-title">Войти</h1>
 
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="msg {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
 
-    <h2>Вход</h2>
-    
-    <!-- Username -->
-    <label for="username">Имя пользователя *</label>
-    <input 
-        type="text" 
-        id="username" 
-        name="username" 
-        class="text-input {% if errors.username %}error-input{% endif %}"
-        value="{{ old_data.username|default:'' }}"
-    >
-    {% if errors.username %}
-        <small class="error">{{ errors.username }}</small>
-    {% endif %}
-    
-    <!-- Password -->
-    <label for="password">Пароль *</label>
-    <input 
-        type="password" 
-        id="password" 
-        name="password" 
-        class="text-input {% if errors.password %}error-input{% endif %}"
-    >
-    {% if errors.password %}
-        <small class="error">{{ errors.password }}</small>
-    {% endif %}
-    
-    <!-- Кнопка входа -->
-    <button type="submit" class="btn">
-        <i class="fa-solid fa-right-to-bracket"></i> Войти
-    </button>
+            {% if errors.general %}
+                <div class="auth-error">{{ errors.general }}</div>
+            {% endif %}
 
-    <p style="margin-top:15px;">
-        Нет аккаунта? <a href="{% url 'register' %}">Зарегистрироваться</a>
-    </p>
-    
-</form>
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="auth-input {% if errors.username %}error-input{% endif %}"
+                    value="{{ old_data.username|default:'' }}"
+                    placeholder="Email или имя пользователя"
+                    required
+                >
+                {% if errors.username %}<p class="field-error">{{ errors.username }}</p>{% endif %}
+            </div>
 
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="auth-input {% if errors.password %}error-input{% endif %}"
+                    placeholder="Пароль"
+                    required
+                >
+                {% if errors.password %}<p class="field-error">{{ errors.password }}</p>{% endif %}
+            </div>
 
+            <button type="submit" class="auth-button">
+                <i class="fa-solid fa-right-to-bracket"></i> Войти
+            </button>
+
+            <div class="auth-footer">
+                Впервые на CatFlix? <a href="{% url 'register' %}">Зарегистрируйтесь</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}

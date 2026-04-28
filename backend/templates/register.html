@@ -1,77 +1,91 @@
 {% extends 'base.html' %}
 
-{% block title %}Регистрация - Sk1sserflix{% endblock %}
+{% block title %}Регистрация - CatFlix{% endblock %}
 
-{% block content %}
-<div class="container">
-    <form method="POST" action="{% url 'register' %}" id="registerForm">
-        <!-- CSRF токен - защита от межсайтовой подделки запросов -->
-        {% csrf_token %}
-        
-        <h2>Регистрация</h2>
-        
-        <!-- Поле username -->
-        <label for="username">Имя пользователя *</label>
-        <input 
-            type="text" 
-            id="username" 
-            name="username" 
-            class="text-input {% if errors.username %}error-input{% endif %}"
-            value="{{ old_data.username|default:'' }}"
-        >
-        {% if errors.username %}
-            <small class="error">{{ errors.username }}</small>
-        {% endif %}
-        
-        <!-- Поле email -->
-        <label for="email">Email *</label>
-        <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            class="text-input {% if errors.email %}error-input{% endif %}"
-            value="{{ old_data.email|default:'' }}"
-        >
-        {% if errors.email %}
-            <small class="error">{{ errors.email }}</small>
-        {% endif %}
-        
-        <!-- Поле пароля -->
-        <label for="password">Пароль *</label>
-        <input 
-            type="password" 
-            id="password" 
-            name="password" 
-            class="text-input {% if errors.password %}error-input{% endif %}"
-        >
-        {% if errors.password %}
-            <small class="error">{{ errors.password }}</small>
-        {% endif %}
-        
-        <!-- Подтверждение пароля -->
-        <label for="password2">Подтвердите пароль *</label>
-        <input 
-            type="password" 
-            id="password2" 
-            name="password2" 
-            class="text-input {% if errors.password2 %}error-input{% endif %}"
-        >
-        {% if errors.password2 %}
-            <small class="error">{{ errors.password2 }}</small>
-        {% endif %}
-        
-        <!-- Checkbox согласия -->
-        <div class="checkbox">
-            <input type="checkbox" id="agree" name="agree" required>
-            <label for="agree" class="terms">
-                Я согласен с <a href="#">условиями</a> использования
+{% block body %}
+<div class="auth-page">
+    <nav class="auth-nav">
+        <a class="logo" href="{% url 'home' %}">CATFLIX</a>
+    </nav>
+
+    <div class="auth-container">
+        <form method="POST" action="{% url 'register' %}" class="auth-form" id="registerForm">
+            {% csrf_token %}
+            <h1 class="auth-title">Регистрация</h1>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="msg {{ message.tags }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+
+            {% if errors.general %}
+                <div class="auth-error">{{ errors.general }}</div>
+            {% endif %}
+
+            <div class="input-group">
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="auth-input {% if errors.username %}error-input{% endif %}"
+                    value="{{ old_data.username|default:'' }}"
+                    placeholder="Имя пользователя"
+                    required
+                >
+                {% if errors.username %}<p class="field-error">{{ errors.username }}</p>{% endif %}
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="auth-input {% if errors.email %}error-input{% endif %}"
+                    value="{{ old_data.email|default:'' }}"
+                    placeholder="Email"
+                    required
+                >
+                {% if errors.email %}<p class="field-error">{{ errors.email }}</p>{% endif %}
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    class="auth-input {% if errors.password %}error-input{% endif %}"
+                    placeholder="Пароль"
+                    required
+                >
+                {% if errors.password %}<p class="field-error">{{ errors.password }}</p>{% endif %}
+            </div>
+
+            <div class="input-group">
+                <input
+                    type="password"
+                    id="password2"
+                    name="password2"
+                    class="auth-input {% if errors.password2 %}error-input{% endif %}"
+                    placeholder="Повторите пароль"
+                    required
+                >
+                {% if errors.password2 %}<p class="field-error">{{ errors.password2 }}</p>{% endif %}
+            </div>
+
+            <label class="checkbox-row" for="agree">
+                <input type="checkbox" id="agree" name="agree" required>
+                <span>Я согласен с <a href="#">условиями</a> использования</span>
             </label>
-        </div>
-        
-        <!-- Кнопка отправки -->
-        <button type="submit" class="btn">
-            <i class="fa-regular fa-comment"></i> Зарегистрироваться
-        </button>
-    </form>
+
+            <button type="submit" class="auth-button">
+                <i class="fa-regular fa-comment"></i> Зарегистрироваться
+            </button>
+
+            <div class="auth-footer">
+                Уже есть аккаунт? <a href="{% url 'login' %}">Войти</a>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
