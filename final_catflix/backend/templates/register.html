@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join CATFLIX</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body class="auth-body">
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-cat"></i>
+                    <span class="logo-flix">FLIX</span>
+                </div>
+                <h1>Create Account</h1>
+                <p>Join the purr-fect community</p>
+            </div>
+
+            <form method="POST" action="{% url 'register' %}" class="auth-form">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input {% if errors.username %}error{% endif %}"
+                        value="{{ old_data.username|default:'' }}"
+                        placeholder="Choose a username"
+                        required
+                    >
+                    {% if errors.username %}
+                        <span class="error-message">{{ errors.username }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        class="form-input {% if errors.email %}error{% endif %}"
+                        value="{{ old_data.email|default:'' }}"
+                        placeholder="Enter your email"
+                        required
+                    >
+                    {% if errors.email %}
+                        <span class="error-message">{{ errors.email }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input {% if errors.password %}error{% endif %}"
+                        placeholder="Create a password"
+                        required
+                    >
+                    {% if errors.password %}
+                        <span class="error-message">{{ errors.password }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input 
+                        type="password" 
+                        id="password2" 
+                        name="password2" 
+                        class="form-input {% if errors.password2 %}error{% endif %}"
+                        placeholder="Confirm your password"
+                        required
+                    >
+                    {% if errors.password2 %}
+                        <span class="error-message">{{ errors.password2 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-check">
+                    <input type="checkbox" id="agree" name="agree" required>
+                    <label for="agree">I agree to the <a href="#">Terms</a> and <a href="#">Privacy Policy</a></label>
+                </div>
+
+                <button type="submit" class="auth-button">
+                    <i class="fas fa-cat"></i>
+                    Sign Up
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

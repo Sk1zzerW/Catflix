@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="side-bar-left">
+        <h2>Список пользователей ({{ users|length }})</h2>
+        <ul id="user">
+            {% for user in users %}
+            <li>
+                {{ user.username }} - {{ user.email }}
+                <br>
+                <small>Зарегистрирован: {{ user.created_at|date:"d.m.Y H:i" }}</small>
+            </li>
+            {% empty %}
+            <li>Нет зарегистрированных пользователей</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
