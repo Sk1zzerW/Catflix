@@ -1,6 +1,8 @@
+import sqlite3 as sql
 from idlelib.iomenu import errors
 from datetime import datetime
 from django.contrib.auth.hashers import make_password
+from api.models import Film
 from django.shortcuts import render, redirect
 from django.contrib import messages
 
@@ -86,6 +88,68 @@ def login(request):
 
     return render(request, 'login.html')
 
+
+
+
+def film_upload(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        poster = request.FILES.get('poster')
+        video = request.FILES.get('video')
+        description = request.POST.get('description')
+        category_of_film = request.POST.get('category_of_film')
+
+        errors = {}
+
+        if not title:
+            errors['title'] = 'Title cannot be empty'
+        elif len(title) < 1 :
+            errors['title'] = 'Title must contain at least 1 characters'
+
+        if not poster:
+            errors['poster'] = 'Poster cannot be empty'
+
+        if not video:
+            errors['video'] = 'Video cannot be empty'
+
+        if not description:
+            errors['description'] = 'Description cannot be empty'
+
+        if not category_of_film:
+            errors['category'] = 'Category cannot be empty'
+
+
+        if errors:
+            return render(request, 'film_upload.html', {
+                'errors': errors,
+                'old_data': request.POST
+            })
+
+
+        Film.objects.create(
+            title=title,
+            poster=poster,
+            video=video,
+            description=description,
+            category_of_film=category_of_film,
+        )
+
+        return redirect('home')
+    return render(request, 'film_upload.html')
+
+
+def catalog(request):
+    category = request.GET.get('category')
+    querry = request.GET.get('q')
+    films = Film.objects.all()
+    if querry:
+        films = films.filter(title__icontains=querry)
+    if category:
+        films = films.filter(category_of_film__icontains=category)
+    return render(request, 'catalog.html', {
+        'films': films,
+        "querry": querry,
+    })
 
 
 

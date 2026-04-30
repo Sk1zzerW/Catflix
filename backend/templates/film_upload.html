@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Film</title>
+</head>
+<body>
+
+<h2>Upload Film</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div>
+        <input type="text" name="title" placeholder="Title"
+               value="{{ old_data.title }}">
+        <p style="color:red">{{ errors.title }}</p>
+    </div>
+
+    <div>
+        <label>Poster:</label>
+        <input type="file" name="poster">
+        <p style="color:red">{{ errors.poster }}</p>
+    </div>
+
+    <div>
+        <label>Video:</label>
+        <input type="file" name="video">
+        <p style="color:red">{{ errors.video }}</p>
+    </div>
+
+    <div>
+        <textarea name="description" placeholder="Description">{{ old_data.description }}</textarea>
+        <p style="color:red">{{ errors.description }}</p>
+    </div>
+
+    <div>
+        <select name="category">
+            <option value="">Select category</option>
+            <option value="1">Film</option>
+            <option value="2">Serial</option>
+            <option value="3">Cartoon</option>
+        </select>
+        <p style="color:red">{{ errors.category }}</p>
+    </div>
+
+    <button type="submit">Upload</button>
+
+</form>
+
+</body>
+</html>
