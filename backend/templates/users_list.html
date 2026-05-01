@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Community — CATFLIX{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div class="container">
+        <h1 class="page-title">Community</h1>
+        <p class="page-subtitle">{{ users|length }} members and growing</p>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="users-grid">
+            {% for u in users %}
+            <div class="user-card">
+                <div class="user-avatar-large">
+                    <i class="fas fa-cat"></i>
+                </div>
+                <div class="user-details">
+                    <h3 class="user-name">{{ u.username }}</h3>
+                    <p class="user-joined">
+                        Member since {{ u.date_joined|date:"Y" }}
+                    </p>
+                    <div class="user-stats">
+                        <span><i class="fas fa-film"></i> 0 reviews</span>
+                    </div>
+                </div>
+                <button class="user-button">
+                    <i class="fas fa-user-plus"></i>
+                    Follow
+                </button>
+            </div>
+            {% empty %}
+            <p style="color: var(--netflix-light-gray);">No users yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
