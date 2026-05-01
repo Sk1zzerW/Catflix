@@ -1,0 +1,75 @@
+[
+  {"model": "api.genre", "pk": 1, "fields": {"name": "Action"}},
+  {"model": "api.genre", "pk": 2, "fields": {"name": "Drama"}},
+  {"model": "api.genre", "pk": 3, "fields": {"name": "Comedy"}},
+  {"model": "api.genre", "pk": 4, "fields": {"name": "Thriller"}},
+  {"model": "api.genre", "pk": 5, "fields": {"name": "Sci-Fi"}},
+  {"model": "api.genre", "pk": 6, "fields": {"name": "Horror"}},
+  {"model": "api.genre", "pk": 7, "fields": {"name": "Animation"}},
+
+  {"model": "api.movie", "pk": 1, "fields": {
+    "title": "Inception", "description": "A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into a target's mind.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg",
+    "trailer_url": "https://www.youtube.com/embed/YoHD9XEInc0",
+    "year": 2010, "rating": "8.8", "age_rating": "13+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [1, 4, 5], "created_at": "2026-01-01T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 2, "fields": {
+    "title": "The Dark Knight", "description": "When the menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman must accept one of the greatest psychological and physical tests of his ability to fight injustice.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+    "trailer_url": "https://www.youtube.com/embed/EXeTwQWrcwY",
+    "year": 2008, "rating": "9.0", "age_rating": "16+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [1, 2, 4], "created_at": "2026-01-02T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 3, "fields": {
+    "title": "Interstellar", "description": "A team of explorers travel through a wormhole in space in an attempt to ensure humanity's survival.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+    "trailer_url": "https://www.youtube.com/embed/zSWdZVtXT7E",
+    "year": 2014, "rating": "8.6", "age_rating": "13+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [2, 5], "created_at": "2026-01-03T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 4, "fields": {
+    "title": "Parasite", "description": "Greed and class discrimination threaten the newly formed symbiotic relationship between the wealthy Park family and the destitute Kim clan.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+    "trailer_url": "https://www.youtube.com/embed/5xH0HfJHsaY",
+    "year": 2019, "rating": "8.5", "age_rating": "18+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [2, 3, 4], "created_at": "2026-01-04T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 5, "fields": {
+    "title": "The Shawshank Redemption", "description": "Two imprisoned men bond over a number of years, finding solace and eventual redemption through acts of common decency.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/lyQBXzOQSuE59IsHyhrp0qIiPAz.jpg",
+    "trailer_url": "https://www.youtube.com/embed/6hB3S9bIaco",
+    "year": 1994, "rating": "9.3", "age_rating": "16+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [2], "created_at": "2026-01-05T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 6, "fields": {
+    "title": "The Matrix", "description": "A computer hacker learns from mysterious rebels about the true nature of his reality and his role in the war against its controllers.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+    "trailer_url": "https://www.youtube.com/embed/vKQi3bBA1y8",
+    "year": 1999, "rating": "8.7", "age_rating": "16+", "content_type": "movie", "is_coming_soon": false, "release_date": null, "genres": [1, 5], "created_at": "2026-01-06T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 7, "fields": {
+    "title": "Breaking Bad", "description": "A high school chemistry teacher diagnosed with inoperable lung cancer turns to manufacturing and selling methamphetamine with a former student to secure his family's future.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+    "trailer_url": "https://www.youtube.com/embed/HhesaQXLuRY",
+    "year": 2008, "rating": "9.5", "age_rating": "18+", "content_type": "series", "is_coming_soon": false, "release_date": null, "genres": [2, 4], "created_at": "2026-01-07T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 8, "fields": {
+    "title": "Stranger Things", "description": "When a young boy disappears, his mother, a police chief and his friends must confront terrifying supernatural forces in order to get him back.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/49WJfeN0moxb9IPfGn8AIqMGskD.jpg",
+    "trailer_url": "https://www.youtube.com/embed/b9EkMc79ZSU",
+    "year": 2016, "rating": "8.7", "age_rating": "16+", "content_type": "series", "is_coming_soon": false, "release_date": null, "genres": [5, 6, 2], "created_at": "2026-01-08T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 9, "fields": {
+    "title": "Avatar: Fire & Ash", "description": "Jake Sully and his family face a new threat as the RDA returns to Pandora with devastating new weapons and a ruthless commander.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/tC78Slx3BKjRR6oSAGwgBWcFSNx.jpg",
+    "trailer_url": "",
+    "year": 2025, "rating": "0.0", "age_rating": "13+", "content_type": "movie", "is_coming_soon": true, "release_date": "2025-12-19", "genres": [1, 5], "created_at": "2026-01-09T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 10, "fields": {
+    "title": "Mission: Impossible 8", "description": "Ethan Hunt and his IMF team face their most dangerous mission yet against a terrifying new enemy.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/z53D40Jm4rNmBmtWJCFNdOqc4fv.jpg",
+    "trailer_url": "",
+    "year": 2025, "rating": "0.0", "age_rating": "13+", "content_type": "movie", "is_coming_soon": true, "release_date": "2025-05-23", "genres": [1, 4], "created_at": "2026-01-10T00:00:00Z"}},
+
+  {"model": "api.movie", "pk": 11, "fields": {
+    "title": "Dune: Messiah", "description": "Paul Atreides unites with the Fremen while consequences of his rise to power ripple across the universe.",
+    "poster_url": "https://image.tmdb.org/t/p/w500/1pdfLvkbY9ohJlCjQH2CZjjYVvJ.jpg",
+    "trailer_url": "",
+    "year": 2026, "rating": "0.0", "age_rating": "13+", "content_type": "movie", "is_coming_soon": true, "release_date": "2026-12-01", "genres": [2, 5], "created_at": "2026-01-11T00:00:00Z"}}
+]

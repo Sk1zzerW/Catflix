@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CATFLIX{% endblock %}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <i class="fas fa-cat"></i>
+                    <span class="logo-flix">FLIX</span>
+                </div>
+                
+                <nav class="main-nav">
+                    <a href="{% url 'home' %}" class="nav-link {% if request.path == '/' %}active{% endif %}">Home</a>
+                    <a href="#" class="nav-link">Movies</a>
+                    <a href="#" class="nav-link">Series</a>
+                    <a href="#" class="nav-link">Coming Soon</a>
+                    <a href="{% url 'users_list' %}" class="nav-link {% if 'users' in request.path %}active{% endif %}">Community</a>
+                </nav>
+            </div>
+
+            <div class="header-right">
+                {% if user.is_authenticated %}
+                    <div class="user-menu">
+                        <div class="user-avatar">
+                            <i class="fas fa-cat"></i>
+                        </div>
+                        <div class="user-dropdown">
+                            <span class="username">{{ user.username }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                            <div class="dropdown-content">
+                                <a href="#"><i class="fas fa-user"></i> Profile</a>
+                                <a href="#"><i class="fas fa-film"></i> My List</a>
+                                <a href="#"><i class="fas fa-heart"></i> Favorites</a>
+                                <a href="#"><i class="fas fa-cog"></i> Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a href="{% url 'logout' %}" class="logout-link"><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="auth-links">
+                        <a href="{% url 'login' %}" class="auth-link">Sign In</a>
+                        <a href="{% url 'register' %}" class="auth-button">Join Now</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
+                    <i class="fas 
+                        {% if message.tags == 'success' %}fa-check-circle
+                        {% elif message.tags == 'error' %}fa-exclamation-circle
+                        {% else %}fa-info-circle
+                        {% endif %}">
+                    </i>
+                    <span>{{ message }}</span>
+                    <button class="message-close" onclick="this.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <main class="main">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <div class="footer-logo">
+                <i class="fas fa-cat"></i>
+                <span class="logo-flix">FLIX</span>
+            </div>
+            <p class="footer-description">Your purr-fect destination for movies and entertainment.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Explore</h4>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Series</a></li>
+                <li><a href="#">Coming Soon</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Company</h4>
+            <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 CATFLIX. All rights reserved.</p>
+        <div class="footer-badges">
+            <i class="fas fa-film"></i>
+            <i class="fas fa-cat"></i>
+            <i class="fas fa-popcorn"></i>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        setTimeout(() => {
+            document.querySelectorAll('.message').forEach(msg => {
+                msg.style.animation = 'fadeOut 0.5s ease forwards';
+                setTimeout(() => msg.remove(), 500);
+            });
+        }, 5000);
+    </script>
+</body>
+</html>
